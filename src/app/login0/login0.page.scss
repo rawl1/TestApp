@@ -1,3 +1,4 @@
+/* login0.page.scss */
 .content-container {
     display: flex;
     flex-direction: column;
@@ -18,7 +19,9 @@
     background-color: #18FF13;
     font-family: Georgia, 'Times New Roman', Times, serif;
   }
-  body {
+
+/* styles.css */
+body {
     background-color: #D0F581;
     margin: 0;
     padding: 0;
@@ -30,3 +33,6 @@
   }
   
   
+  ion-title{
+    --background:var(--background)
+  }
