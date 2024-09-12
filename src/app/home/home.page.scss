@@ -1,0 +1,67 @@
+
+ion-content {
+    background-color: #E22227;
+  }
+  
+ 
+  ion-card {
+    width: 80vw;
+    max-width: 200px;
+    height: auto; 
+    max-height: 200px; 
+    --background: #440101;
+    --box-shadow: 0 4px 8px rgba(13, 102, 1, 0.1);
+    --border-radius: 20px;
+    --padding: 20px;
+    margin-bottom: 10px;
+  }
+  
+  ion-card img {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #E22227;
+  }
+  
+
+  .user-info {
+    margin-bottom: 20px;
+  }
+  
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+
+  ion-button {
+    margin-top: 10px; 
+  }
+  
+
+  ion-title {
+    background-color: #E22227;
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  ion-header{
+    background-color: #E22227;
+  }
+  ion-footer {
+    background-color: #E22227; 
+  }
+  
+  
+  

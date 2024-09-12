@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { SessionManager } from '../managers/SessionManager';
+import { Storage } from '@ionic/storage-angular';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -7,9 +8,22 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  nombreUsuario: string = 'Raul';
 
-  ngOnInit() {
+  constructor(private sessionManager: SessionManager,private storage: Storage) { }
+
+  async ngOnInit() {
+    this.verStorage();
   }
 
+  async verStorage() {
+    let nombre= await this.storage.get("nombreUsuario");
+    console.log("el nombre guardado es:"+ nombre)
+  }
+
+  onLogoutButtonPressed() {
+    this.sessionManager.performLogout();
+  }
 }
+
+

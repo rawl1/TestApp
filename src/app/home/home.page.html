@@ -1,13 +1,61 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title>Savor Space</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">home</ion-title>
+      <ion-title>Savor Space</ion-title>
     </ion-toolbar>
+    
   </ion-header>
+
+  
+  <div class="content-container">
+    <p class="user-info">Bienvenido {{ nombreUsuario }}!!!</p>
+    <ion-card>
+      <img alt="Silhouette of mountains" src="assets/images/taquitos.webp" />
+      <ion-card-header>
+        <ion-card-title>Tacos</ion-card-title>
+        <ion-card-subtitle>Receta recomendada</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Here's a small text description for the card content. Nothing more, nothing less.
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <img alt="Silhouette of mountains" src="assets/images/cazuelacl.jpg" />
+      <ion-card-header>
+        <ion-card-title>Tacos</ion-card-title>
+        <ion-card-subtitle>Receta recomendada</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Here's a small text description for the card content. Nothing more, nothing less.
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <img alt="Silhouette of mountains" src="assets/images/polloarverjado.jpg" />
+      <ion-card-header>
+        <ion-card-title>Tacos</ion-card-title>
+        <ion-card-subtitle>Receta recomendada</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Here's a small text description for the card content. Nothing more, nothing less.
+      </ion-card-content>
+    </ion-card>
+    <div class="button-container">
+
+    </div>
+  </div>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-button expand="block" color="danger" (click)="onLogoutButtonPressed()">Cerrar Sesión</ion-button>
+    </ion-toolbar>
+  </ion-footer>
+  
 </ion-content>

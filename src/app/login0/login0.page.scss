@@ -1,38 +1,40 @@
-/* login0.page.scss */
+
 .content-container {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra verticalmente */
-    align-items: center;     /* Centra horizontalmente */
-    height: 100%;            /* Usa toda la altura disponible del contenido */
-    padding: 20px;          /* Añade algún espacio alrededor de los botones */
-    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
   }
   
   button {
-    width: 80%;             /* Ajusta el ancho de los botones según tu diseño */
-    max-width: 300px;       /* Máximo ancho para los botones */
-    margin: 10px 0;         /* Espacio entre los botones */
+    width: 80%;
+    max-width: 300px;
+    margin: 10px 0; 
     padding: 15px;
     font-size: 16px;
     border-radius: 5px;
-    background-color: #18FF13;
+    background-color: #440101;
     font-family: Georgia, 'Times New Roman', Times, serif;
   }
 
 /* styles.css */
 body {
-    background-color: #D0F581;
+    background-color: #E22227;
     margin: 0;
     padding: 0;
-    font-family: Georgia, 'Times New Roman', Times, serif; /* Puedes ajustar la fuente según tu preferencia */
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
   
   ion-content {
-    --background: #D0F581; /* Asegura que el contenido también tenga el fondo deseado */
+    --background: #E22227;
   }
   
   
   ion-title{
-    --background:var(--background)
+    background-color: #E22227;
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
