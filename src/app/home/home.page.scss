@@ -6,31 +6,67 @@ ion-content {
  
   ion-card {
     width: 80vw;
-    max-width: 200px;
-    height: auto; 
-    max-height: 200px; 
+    max-width: 180px;
+    height: auto;
+    min-height: 250px; /* Establece una altura mínima para asegurar espacio para el texto */
+    max-height: 300px;
     --background: #440101;
     --box-shadow: 0 4px 8px rgba(13, 102, 1, 0.1);
     --border-radius: 20px;
     --padding: 20px;
-    margin-bottom: 10px;
-  }
-  
-  ion-card img {
-    width: 100%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-  
-
-  .content-container {
+    margin-bottom: 20px;
+    color: #ffffff; /* Aumenta el contraste del texto */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #E22227;
+    justify-content: space-between; /* Asegura que el contenido esté distribuido */
+    margin: 20px;
   }
-  
+
+
+  ion-card-title,
+  ion-card-subtitle,
+  ion-card-content {
+  color: #ffffff; /* Asegura que el texto en todos los elementos sea visible */
+  }
+
+  ion-card-suntitle {
+    font-size: 16px; /* Ajusta el tamaño de la fuente para el subtítulo */
+    font-weight: bold; /* Aumenta el peso del subtítulo */
+    margin-bottom: 10px; /* Añade espacio debajo del subtítulo */
+  }
+  ion-card-content {
+    padding-bottom: 10px; /* Añade espacio debajo del contenido */
+    font-size: 10px; /* Ajusta el tamaño de la fuente para el contenido */
+  }
+
+  ion-card-title{
+    font-size: 20px; /* Ajusta el tamaño de la fuente para el título */
+    font-weight: bold; /* Aumenta el peso del título */
+    margin-bottom: 10px; /* Añade espacio debajo del título */
+  }
+
+  ion-card img {
+    border-radius: 20px;
+    max-height: 120px; /* Limita la altura de la imagen */
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho */
+    object-fit: cover; /* Recorta la imagen sin deformarla */
+  }
+
+  ion-card-header {
+    padding-bottom: 10px; /* Añade espacio debajo del encabezado */
+  }
+
+  ion-card-content {
+    padding-top: 10px; /* Añade espacio sobre el contenido */
+    font-size: 14px; /* Ajusta el tamaño de la fuente para el contenido */
+  }
+
+
+  .content-container {
+  padding: 16px;
+  background-color: #E22227;
+  }
+
 
   .user-info {
     margin-bottom: 20px;
@@ -63,5 +99,19 @@ ion-content {
     background-color: #E22227; 
   }
   
+  .card-container {
+    flex: 0 1 30%; /* Ajusta el ancho de cada tarjeta al 30% del contenedor */
+    max-width: 300px; /* Ancho máximo para cada tarjeta */
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Múltiples columnas adaptables */
+    gap: 50px; /* Espacio entre tarjetas */
+  }
+  
+  .card-container {
+    width: 100%; /* Asegura que cada tarjeta ocupe el ancho completo de la columna */
+  }
   
   
