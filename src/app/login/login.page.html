@@ -1,34 +1,29 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
+<ion-header>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title></ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-
-  <div class="content-container">
-    <div class="input-container">
-      <ion-img src="assets/images/icon.png"></ion-img>
-      <ion-item>
-        <ion-input placeholder="Usuario" type="text" [(ngModel)]="user"></ion-input>
+<ion-content class="login-background">
+  <div class="login-container">
+    <form (ngSubmit)="onLoginButtonPressed()">
+      
+      <!-- Campo para el usuario -->
+      <ion-item class="input-item">
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input [(ngModel)]="user" name="user" type="text" required></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-input placeholder="Contraseña" type="password" [(ngModel)]="password"></ion-input>
-      </ion-item>
-    </div>
-    <div class="button-container">
-      <button expand="block" (click)="onLoginButtonPressed()">Iniciar sesion</button>
-      <br>
 
-      <button expand="block" (click)="onRegisterButtonPressed()">Registrarse</button>
-    </div>
+      <!-- Campo para la contraseña -->
+      <ion-item class="input-item">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+      </ion-item>
+
+      <!-- Botón de iniciar sesión -->
+      <ion-button expand="full" type="submit">Iniciar sesión</ion-button>
+      
+      <!-- Enlace para registrar -->
+      <div class="register-link">
+        <p>¿No tienes cuenta? <a (click)="onRegisterButtonPressed()">Regístrate aquí</a></p>
+      </div>
+    </form>
   </div>
-
-    
-
+</ion-content>

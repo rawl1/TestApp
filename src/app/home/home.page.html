@@ -1,18 +1,18 @@
-<ion-content [fullscreen]="true">
-  <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-title>Savor Space</ion-title>
-      <!-- Botón de cerrar sesión al lado del título como imagen -->
-      <ion-buttons slot="end">
-        <ion-button (click)="onLogoutButtonPressed()">
-          <ion-icon>
-            <img src="assests/images/salida.png" alt="Cerrar Sesión" style="width: 24px; height: 24px;" />
-          </ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Savor Space</ion-title>
+    <!-- Botón de cerrar sesión al lado del título como imagen -->
+    <ion-buttons slot="end">
+      <ion-button (click)="onLogoutButtonPressed()">
+        <ion-icon>
+          <img src="assets/images/salida.png" alt="Cerrar Sesión" style="width: 24px; height: 24px;" />
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content [fullscreen]="true">
   <div class="content-container">
     <p class="user-info">Bienvenido {{ nombreUsuario }}!!!</p>
 
@@ -37,7 +37,7 @@
             <ion-card-subtitle>Receta recomendada</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            Plato tipico de Chile echa con cualquier tipo de carne y verduras, tal como zapallo, choclo, papa.
+            Plato típico de Chile, hecho con cualquier tipo de carne y verduras, tal como zapallo, choclo, papa.
           </ion-card-content>
         </ion-card>
       </div>
@@ -49,7 +49,7 @@
             <ion-card-subtitle>Receta destacada</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            Guiso tipico de Chile elaborado con pollo y arverjas como ingredientes principales.
+            Guiso típico de Chile elaborado con pollo y arvejas como ingredientes principales.
           </ion-card-content>
         </ion-card>
       </div>
@@ -67,19 +67,19 @@
       </div>
       <div class="card-container">
         <ion-card>
-          <img alt="Empanadas" src="assets/images/niñosenvueltos.jpg" />
+          <img alt="Niños Envueltos" src="assets/images/niñosenvueltos.jpg" />
           <ion-card-header>
             <ion-card-title>Niños Envueltos</ion-card-title>
             <ion-card-subtitle>Receta destacada</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            Aquí va una pequeña descripción del contenido de la tarjeta.
+            Carne con arroz envueltos en hojas de parra.
           </ion-card-content>
         </ion-card>
       </div>
       <div class="card-container">
         <ion-card>
-          <img alt="Empanadas" src="assets/images/Empanada.jpg" />
+          <img alt="Pizza" src="assets/images/pizza.jpeg" />
           <ion-card-header>
             <ion-card-title>Empanadas</ion-card-title>
             <ion-card-subtitle>Receta destacada</ion-card-subtitle>
@@ -92,4 +92,4 @@
       <!-- Agrega más tarjetas según sea necesario -->
     </div>
   </div>
-
+</ion-content>

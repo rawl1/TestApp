@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionManager } from '../managers/SessionManager';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Storage } from '@ionic/storage-angular';
+import { FirebaseDatabaseService } from '../services/firebase-database.service';  // Importa el servicio de Firebase Realtime Database
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -12,34 +14,44 @@ export class LoginPage implements OnInit {
   user: string = '';
   password: string = '';
 
-  constructor(private router: Router, private sessionManager: SessionManager, private storage: Storage) { }
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private storage: Storage,
+    private firebaseDatabaseService: FirebaseDatabaseService  // Inyecta el servicio
+  ) {}
 
   async ngOnInit() {
     await this.storage.create();
-
   }
 
-  onLoginButtonPressed() {
+  // Función para manejar el login
+  async onLoginButtonPressed() {
     console.log('User:', this.user);
     console.log('Password:', this.password);
 
-    if (this.sessionManager.performLogin(this.user, this.password)) {
-      this.storage.set("nombreUsuario", this.user);
+    try {
+      // Iniciar sesión con Firebase Auth
+      const userCredential = await this.afAuth.signInWithEmailAndPassword(this.user, this.password);
+      console.log('Usuario logueado', userCredential);
+
+      // Obtener los datos del usuario desde Firebase Realtime Database
+      const userData = await this.firebaseDatabaseService.getUserFromDatabase(userCredential.user?.uid).toPromise();
+      console.log('Datos del usuario:', userData);
+
+      // Guardar el nombre del usuario en localStorage
+      this.storage.set("nombreUsuario", userData?.userName);
+
+      // Redirigir a la página de inicio
       this.router.navigate(['/home']);
-    } else {
-      this.user = '';
-      this.password = '';
+    } catch (error) {
+      console.error('Error al iniciar sesión', error);
       alert('Las credenciales ingresadas son inválidas');
     }
-    //guardar informacion en el storage
-    this.storage.set("nombreUsuario",'raul')
   }
 
+  // Función para navegar al registro
   onRegisterButtonPressed() {
     this.router.navigate(['/register']);
   }
-
-  
-
-
 }

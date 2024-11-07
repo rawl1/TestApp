@@ -1,42 +1,49 @@
+/* Fondo de la página de registro */
+.register-background {
+  --background: url('/assets/images/fondo.jpg');
+}
 
-.content-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    width: 80%;
-    max-width: 300px;
-    margin: 10px 0;
-    padding: 15px;
-    font-size: 16px;
-    border-radius: 5px;
-    background-color: #440101;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
+/* Centrar el contenido */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%; /* Asegura que ocupe toda la altura */
+  padding: 0 20px; /* Espacio en los lados */
+}
 
+/* Estilo de los campos del formulario */
+.input-item {
+  --background: rgba(255, 255, 255, 0.3); /* Fondo blanco translúcido */
+  --box-shadow: none; /* Sin sombra */
+  --border-radius: 10px; /* Bordes redondeados */
+  margin-bottom: 20px; /* Espacio entre campos */
+}
 
-body {
-    background-color: #E22227;
-    margin: 0;
-    padding: 0;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
-  
-  ion-content {
-    --background: #E22227;
-  }
-  
-  
-  ion-title{
-    background-color: #440101;
-    font-size: 30px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
-  ion-input{
-    background-color: #440101;
-  }
+/* Estilo para el botón */
+ion-button {
+  margin-top: 20px;
+  --background: #640101; /* Fondo azul */
+  --color: white; /* Texto blanco */
+  --border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Estilo para el enlace de iniciar sesión */
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+}
+ion-header {
+  --background: rgba(255, 6, 6, 0.5); /* Si deseas una capa semi-transparente en el encabezado */
+  color: white; /* Si deseas que el texto del header sea blanco */
+}
+
+ion-toolbar {
+  background-color: rgb(226, 43, 43);
+}
+
+ion-title {
+  color: white; /* Cambiar el color del título del header */
+}
+

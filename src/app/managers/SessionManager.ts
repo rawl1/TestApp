@@ -10,18 +10,8 @@ export class SessionManager {
   private readonly temporaryPass: string = 'pass';
 
   constructor(private router: Router) {}
-
-  performLogin(user: string, password: string): boolean {
-    if (user === this.temporaryUserName && password === this.temporaryPass) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   performLogout() {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
 }
-

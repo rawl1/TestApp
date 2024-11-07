@@ -29,12 +29,7 @@ body {
   }
   
   ion-content {
-    --background: #E22227;
+    --background: url('/assets/images/fondo.jpg');
   }
   
   
-  ion-title{
-    background-color: #E22227;
-    font-size: 30px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
