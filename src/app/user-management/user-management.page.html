@@ -4,24 +4,28 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <!-- Formulario para añadir o actualizar usuario -->
-  <form (submit)="onSaveUser()">
-    <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input [(ngModel)]="userName" name="userName" required></ion-input>
-    </ion-item>
-    <ion-button expand="full" type="submit">Guardar Usuario</ion-button>
-  </form>
+<ion-content class="user-management-background">
+  <div class="user-form-container">
+    <form (submit)="onSaveUser()">
+      <ion-item class="input-item">
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="userName" name="userName" required></ion-input>
+      </ion-item>
+      <ion-item class="input-item">
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input [(ngModel)]="userEmail" type="email" required></ion-input>
+      </ion-item>
+      <ion-button expand="full" type="submit">Guardar Usuario</ion-button>
+    </form>
+  </div>
 
-  <!-- Lista de usuarios -->
-  <ion-list>
-    <ion-item *ngFor="let user of users">
+  <ion-list class="user-list-container">
+    <ion-item *ngFor="let user of users" class="user-list-item">
       <ion-label>
         <h2>{{ user.userName }}</h2>
-        <p>ID: {{ user.id }}</p>
+        <h3>{{ user.email }}</h3>
       </ion-label>
-      <ion-button (click)="onEditUser(user)">Editar</ion-button>
+      <ion-button color="primary" (click)="onEditUser(user)">Editar</ion-button>
       <ion-button color="danger" (click)="onDeleteUser(user.id)">Eliminar</ion-button>
     </ion-item>
   </ion-list>

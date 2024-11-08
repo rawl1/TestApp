@@ -9,27 +9,27 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class HomePage implements OnInit {
 
-  nombreUsuario: string = ''; // Inicia vacío para cargar el nombre real
+  nombreUsuario: string = '';
 
   constructor(private sessionManager: SessionManager, private storage: Storage) { }
 
   async ngOnInit() {
-    await this.storage.create();  // Asegúrate de inicializar Ionic Storage
-    this.verStorage(); // Llamar a la función para obtener el nombre del usuario
+    await this.storage.create(); 
+    this.verStorage();
   }
 
-  // Función para obtener el nombre del usuario desde el almacenamiento
+ 
   async verStorage() {
     let nombre = await this.storage.get("nombreUsuario");
     console.log("El nombre guardado es: " + nombre);
     if (nombre) {
-      this.nombreUsuario = nombre; // Asignar el nombre recuperado al campo
+      this.nombreUsuario = nombre; 
     } else {
-      this.nombreUsuario = 'Invitado'; // Si no hay nombre, asignar 'Invitado'
+      this.nombreUsuario = 'Invitado';
     }
   }
 
-  // Función para cerrar sesión
+
   onLogoutButtonPressed() {
     this.sessionManager.performLogout();
   }

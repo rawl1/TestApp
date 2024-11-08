@@ -5,22 +5,22 @@
   <div class="login-container">
     <form>
       
-      <!-- Campo para el usuario -->
+      
       <ion-item class="input-item">
         <ion-label position="floating">Usuario</ion-label>
         <ion-input [(ngModel)]="user" name="user" type="text" required></ion-input>
       </ion-item>
 
-      <!-- Campo para la contraseña -->
+      
       <ion-item class="input-item">
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
       </ion-item>
 
-      <!-- Botón de iniciar sesión -->
+      
       <ion-button expand="full" (click)="onLoginButtonPressed()">Iniciar sesión</ion-button>
       
-      <!-- Enlace para registrar -->
+      
       <div class="register-link">
         <p>¿No tienes cuenta? <a (click)="onRegisterButtonPressed()">Regístrate aquí</a></p>
       </div>

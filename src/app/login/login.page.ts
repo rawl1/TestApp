@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Storage } from '@ionic/storage-angular';
-import { FirebaseDatabaseService } from '../services/firebase-database.service';  // Importa el servicio de Firebase Realtime Database
+import { FirebaseDatabaseService } from '../services/firebase-database.service';
 
 @Component({
   selector: 'app-login',
@@ -18,28 +18,28 @@ export class LoginPage implements OnInit {
     private router: Router,
     private afAuth: AngularFireAuth,
     private storage: Storage,
-    private firebaseDatabaseService: FirebaseDatabaseService  // Inyecta el servicio
+    private firebaseDatabaseService: FirebaseDatabaseService 
   ) {}
 
   async ngOnInit() {
     await this.storage.create();
   }
 
-  // Función para manejar el login
+  // funcion del login
   async onLoginButtonPressed() {
     console.log('User:', this.user);
     console.log('Password:', this.password);
 
     try {
-      // Iniciar sesión con Firebase Auth
+      // inica sesion con fireatuth
       const userCredential = await this.afAuth.signInWithEmailAndPassword(this.user, this.password);
       console.log('Usuario logueado', userCredential);
 
-      // Obtener los datos del usuario desde Firebase Realtime Database
+      // obetener datos de realtime database
       const userData = await this.firebaseDatabaseService.getUserFromDatabase(userCredential.user?.uid).toPromise();
       console.log('Datos del usuario:', userData);
 
-      // Guardar el nombre del usuario en localStorage
+      // guarada el nombre de usuario en local storage
       this.storage.set("nombreUsuario", userData?.userName);
 
       // Redirigir a la página de inicio
@@ -50,7 +50,6 @@ export class LoginPage implements OnInit {
     }
   }
 
-  // Función para navegar al registro
   onRegisterButtonPressed() {
     this.router.navigate(['/register']);
   }

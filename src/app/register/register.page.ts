@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastController } from '@ionic/angular';
-import { FirebaseDatabaseService } from '../services/firebase-database.service';  // Importa el servicio de Firebase Realtime Database
-import { User } from '../models/user.model';  // Asegúrate de importar el modelo de usuario
+import { FirebaseDatabaseService } from '../services/firebase-database.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -12,23 +12,23 @@ import { User } from '../models/user.model';  // Asegúrate de importar el model
 })
 export class RegisterPage implements OnInit {
 
-  user: string = '';  // Nombre de usuario
-  email: string = '';  // Correo electrónico
-  password: string = '';  // Contraseña
-  confirmPassword: string = '';  // Confirmar contraseña
+  user: string = '';
+  email: string = '';
+  password: string = '';
+  confirmPassword: string = '';
 
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
     private toastController: ToastController,
-    private firebaseDatabaseService: FirebaseDatabaseService  // Inyecta el servicio
+    private firebaseDatabaseService: FirebaseDatabaseService
   ) {}
 
   ngOnInit() {}
 
-  // Función para manejar el registro
+  
   async onRegisterButtonPressed() {
-    // Validación de contraseñas
+    // Valida password
     if (this.password !== this.confirmPassword) {
       const toast = await this.toastController.create({
         message: 'Las contraseñas no coinciden.',
@@ -39,7 +39,7 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    // Validación de campos vacíos
+    // valida campos vacios
     if (!this.user || !this.email || !this.password || !this.confirmPassword) {
       const toast = await this.toastController.create({
         message: 'Por favor completa todos los campos.',
@@ -51,22 +51,22 @@ export class RegisterPage implements OnInit {
     }
 
     try {
-      // Crear cuenta con el email y contraseña
+      // crear cuenta con email y user
       const userCredential = await this.afAuth.createUserWithEmailAndPassword(this.email, this.password);
       console.log('Usuario registrado', userCredential);
 
-      // Crear datos del usuario
+      // crea los datos
       const userData: User = {
-        id: userCredential.user?.uid || '',  // UID de Firebase Auth
-        email: this.email,  // Correo electrónico del usuario
-        userName: this.user,  // Nombre de usuario
-        createdAt: new Date().toISOString(),  // Fecha de creación
+        id: userCredential.user?.uid || '',  
+        email: this.email,
+        userName: this.user,
+        createdAt: new Date().toISOString(),
       };
       
-      // Guardar datos del usuario en Firebase Realtime Database
+      
       await this.firebaseDatabaseService.addUser(userData);
 
-      // Redirigir a la página de login
+     
       this.router.navigate(['/login']);
     } catch (error) {
       console.error('Error al registrar', error);
@@ -79,7 +79,7 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  // Función para navegar al login
+  
   onLoginButtonPressed() {
     this.router.navigate(['/login']);
   }
