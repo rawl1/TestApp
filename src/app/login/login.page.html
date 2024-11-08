@@ -3,7 +3,7 @@
 
 <ion-content class="login-background">
   <div class="login-container">
-    <form (ngSubmit)="onLoginButtonPressed()">
+    <form>
       
       <!-- Campo para el usuario -->
       <ion-item class="input-item">
@@ -18,7 +18,7 @@
       </ion-item>
 
       <!-- Botón de iniciar sesión -->
-      <ion-button expand="full" type="submit">Iniciar sesión</ion-button>
+      <ion-button expand="full" (click)="onLoginButtonPressed()">Iniciar sesión</ion-button>
       
       <!-- Enlace para registrar -->
       <div class="register-link">

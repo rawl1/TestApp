@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Administración de Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Formulario para añadir o actualizar usuario -->
+  <form (submit)="onSaveUser()">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="userName" name="userName" required></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit">Guardar Usuario</ion-button>
+  </form>
+
+  <!-- Lista de usuarios -->
+  <ion-list>
+    <ion-item *ngFor="let user of users">
+      <ion-label>
+        <h2>{{ user.userName }}</h2>
+        <p>ID: {{ user.id }}</p>
+      </ion-label>
+      <ion-button (click)="onEditUser(user)">Editar</ion-button>
+      <ion-button color="danger" (click)="onDeleteUser(user.id)">Eliminar</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

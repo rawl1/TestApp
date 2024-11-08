@@ -1,35 +1,40 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database'; // Importar el servicio de Firebase
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class FirebaseDatabaseService {
-  constructor(private db: AngularFireDatabase) {}
 
-  // Método para obtener todos los elementos de una referencia en la base de datos
-  getItems(): Observable<any[]> {
-    return this.db.list('items').valueChanges(); // 'items' es el nodo de la base de datos
+  private usersCollection = 'users';  // Nombre de la colección en Firestore
+
+  constructor(private firestore: AngularFirestore) {}
+
+  // Método para crear un nuevo usuario
+  addUser(user: User): Promise<void> {
+    const id = this.firestore.createId();
+    return this.firestore.collection(this.usersCollection).doc(id).set({ ...user, id });
   }
 
-  // Método para agregar un nuevo usuario (o cualquier dato)
-  addUserToDatabase(uid: string, userData: any): Promise<void> {
-    return this.db.object(`/users/${uid}`).set(userData);
+  // Método para obtener todos los usuarios
+  getUsers(): Observable<User[]> {
+    return this.firestore.collection<User>(this.usersCollection).valueChanges();
   }
 
-  // Método para obtener los datos de un usuario
-  getUserFromDatabase(uid: string): Observable<any> {
-    return this.db.object(`/users/${uid}`).valueChanges();
+  // Método para obtener un usuario específico por su ID
+  getUserFromDatabase(userId: string): Observable<User | undefined> {
+    return this.firestore.collection(this.usersCollection).doc<User>(userId).valueChanges();
   }
 
-  // Método para actualizar datos de un usuario
-  updateUserInDatabase(uid: string, userData: any): Promise<void> {
-    return this.db.object(`/users/${uid}`).update(userData);
+  // Método para actualizar un usuario
+  updateUser(id: string, user: Partial<User>): Promise<void> {
+    return this.firestore.collection(this.usersCollection).doc(id).update(user);
   }
 
   // Método para eliminar un usuario
-  deleteUserFromDatabase(uid: string): Promise<void> {
-    return this.db.object(`/users/${uid}`).remove();
+  deleteUser(id: string): Promise<void> {
+    return this.firestore.collection(this.usersCollection).doc(id).delete();
   }
 }

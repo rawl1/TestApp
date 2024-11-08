@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastController } from '@ionic/angular';
 import { FirebaseDatabaseService } from '../services/firebase-database.service';  // Importa el servicio de Firebase Realtime Database
+import { User } from '../models/user.model';  // Asegúrate de importar el modelo de usuario
 
 @Component({
   selector: 'app-register',
@@ -11,10 +12,10 @@ import { FirebaseDatabaseService } from '../services/firebase-database.service';
 })
 export class RegisterPage implements OnInit {
 
-  user: string = '';
-  email: string = '';
-  password: string = '';
-  confirmPassword: string = '';
+  user: string = '';  // Nombre de usuario
+  email: string = '';  // Correo electrónico
+  password: string = '';  // Contraseña
+  confirmPassword: string = '';  // Confirmar contraseña
 
   constructor(
     private router: Router,
@@ -27,9 +28,21 @@ export class RegisterPage implements OnInit {
 
   // Función para manejar el registro
   async onRegisterButtonPressed() {
+    // Validación de contraseñas
     if (this.password !== this.confirmPassword) {
       const toast = await this.toastController.create({
         message: 'Las contraseñas no coinciden.',
+        duration: 2000,
+        color: 'danger',
+      });
+      toast.present();
+      return;
+    }
+
+    // Validación de campos vacíos
+    if (!this.user || !this.email || !this.password || !this.confirmPassword) {
+      const toast = await this.toastController.create({
+        message: 'Por favor completa todos los campos.',
         duration: 2000,
         color: 'danger',
       });
@@ -43,17 +56,18 @@ export class RegisterPage implements OnInit {
       console.log('Usuario registrado', userCredential);
 
       // Crear datos del usuario
-      const userData = {
-        email: this.email,
-        userName: this.user,
-        createdAt: new Date().toISOString(),
+      const userData: User = {
+        id: userCredential.user?.uid || '',  // UID de Firebase Auth
+        email: this.email,  // Correo electrónico del usuario
+        userName: this.user,  // Nombre de usuario
+        createdAt: new Date().toISOString(),  // Fecha de creación
       };
-
+      
       // Guardar datos del usuario en Firebase Realtime Database
-      await this.firebaseDatabaseService.addUserToDatabase(userCredential.user?.uid, userData);
+      await this.firebaseDatabaseService.addUser(userData);
 
-      // Redirigir a la página de inicio
-      this.router.navigate(['/home']);
+      // Redirigir a la página de login
+      this.router.navigate(['/login']);
     } catch (error) {
       console.error('Error al registrar', error);
       const toast = await this.toastController.create({
