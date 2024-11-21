@@ -30,6 +30,10 @@ const routes: Routes = [
     path: 'user-management',
     loadChildren: () => import('./user-management/user-management.module').then( m => m.UserManagementPageModule)
   },
+  {
+    path: 'ingresorecetas',
+    loadChildren: () => import('./ingresorecetas/ingresorecetas.module').then( m => m.IngresorecetasPageModule)
+  },
 
   
 

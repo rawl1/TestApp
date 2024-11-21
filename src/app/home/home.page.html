@@ -1,7 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Savor Space</ion-title>
-    
     <ion-buttons slot="end">
       <ion-button (click)="onLogoutButtonPressed()">
         <ion-icon>
@@ -16,7 +15,9 @@
   <div class="content-container">
     <p class="user-info">Bienvenido {{ nombreUsuario }}!!!</p>
 
+    <!-- Sección estática -->
     <div class="grid-container">
+      <!-- Tus tarjetas estáticas existentes -->
       <div class="card-container">
         <ion-card>
           <img alt="Tacos" src="assets/images/taquitos.webp" />
@@ -29,67 +30,20 @@
           </ion-card-content>
         </ion-card>
       </div>
-      <div class="card-container">
-        <ion-card>
-          <img alt="Cazuela" src="assets/images/cazuelacl.jpg" />
-          <ion-card-header>
-            <ion-card-title>Cazuela</ion-card-title>
-            <ion-card-subtitle>Receta recomendada</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            Plato típico de Chile, hecho con cualquier tipo de carne y verduras, tal como zapallo, choclo, papa.
-          </ion-card-content>
-        </ion-card>
-      </div>
-      <div class="card-container">
-        <ion-card>
-          <img alt="Pollo Arvejado" src="assets/images/polloarverjado.jpg" />
-          <ion-card-header>
-            <ion-card-title>Pollo Arvejado</ion-card-title>
-            <ion-card-subtitle>Receta destacada</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            Guiso típico de Chile elaborado con pollo y arvejas como ingredientes principales.
-          </ion-card-content>
-        </ion-card>
-      </div>
-      <div class="card-container">
-        <ion-card>
-          <img alt="Empanadas" src="assets/images/Empanada.jpg" />
-          <ion-card-header>
-            <ion-card-title>Empanadas</ion-card-title>
-            <ion-card-subtitle>Receta destacada</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            Aquí va una pequeña descripción del contenido de la tarjeta.
-          </ion-card-content>
-        </ion-card>
-      </div>
-      <div class="card-container">
-        <ion-card>
-          <img alt="Niños Envueltos" src="assets/images/niñosenvueltos.jpg" />
-          <ion-card-header>
-            <ion-card-title>Niños Envueltos</ion-card-title>
-            <ion-card-subtitle>Receta destacada</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            Carne con arroz envueltos en hojas de parra.
-          </ion-card-content>
-        </ion-card>
-      </div>
-      <div class="card-container">
-        <ion-card>
-          <img alt="Pizza" src="assets/images/pizza.jpeg" />
-          <ion-card-header>
-            <ion-card-title>Empanadas</ion-card-title>
-            <ion-card-subtitle>Receta destacada</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            Aquí va una pequeña descripción del contenido de la tarjeta.
-          </ion-card-content>
-        </ion-card>
-      </div>
-      
+      <!-- (Otras tarjetas estáticas...) -->
     </div>
+
+    <!-- Sección dinámica -->
+    <ion-list>
+      <ion-item *ngFor="let receta of recetas">
+        <ion-thumbnail slot="start">
+          <img [src]="receta.imageUrl" alt="Imagen de la receta" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ receta.title }}</h2>
+          <p>{{ receta.description }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>

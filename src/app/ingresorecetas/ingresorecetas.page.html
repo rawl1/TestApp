@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ingresar Receta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Título</ion-label>
+      <ion-input type="text" [(ngModel)]="newRecipe.title" name="title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-textarea [(ngModel)]="newRecipe.description" name="description"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">URL de Imagen</ion-label>
+      <ion-input type="text" [(ngModel)]="newRecipe.imageUrl" name="imageUrl"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit">Guardar Receta</ion-button>
+  </form>
+</ion-content>
