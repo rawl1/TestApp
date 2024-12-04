@@ -1,0 +1,78 @@
+/* Fondo de la página */
+ion-content {
+    --padding-bottom: 70px; /* Evita que el contenido quede oculto detrás de los tabs */
+    height: calc(100vh - 56px); /* Ajusta la altura para permitir desplazamiento */
+    overflow-y: auto; /* Permite desplazamiento vertical */
+    --background: url('/assets/images/fondo.jpg') no-repeat center center / cover; /* Imagen de fondo */
+  }
+  
+  /* Estilo para el encabezado */
+  ion-header {
+    background-color: #E22227; /* Rojo intenso */
+    color: white; /* Texto blanco */
+  }
+  
+  /* Contenedor principal */
+  .ingresorecetas-container {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ocupa toda la pantalla */
+    padding: 20px; /* Espaciado alrededor */
+  }
+  
+  /* Estilo del título de la página */
+  .page-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px; /* Espacio debajo del título */
+    color: white; /* Texto blanco */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra para destacar sobre el fondo */
+  }
+  
+  /* Formulario centrado */
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px; /* Ancho máximo para pantallas grandes */
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.9); /* Fondo negro con opacidad */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); /* Sombra ligera */
+  }
+  
+  /* Estilo para los elementos del formulario */
+  ion-item {
+    --background: rgba(255, 255, 255, 0.1); /* Fondo blanco translúcido para los campos */
+    --box-shadow: none; /* Eliminar sombra por defecto */
+    --border-radius: 10px; /* Bordes redondeados */
+    margin-bottom: 15px; /* Espaciado entre campos */
+    width: 100%; /* Hacer que los campos ocupen todo el ancho */
+  }
+  
+  /* Inputs y Textarea */
+  ion-input,
+  ion-textarea {
+    color: white; /* Texto blanco */
+  }
+  
+  /* Etiquetas */
+  ion-label {
+    color: white; /* Etiquetas blancas para que resalten */
+  }
+  
+  /* Botón */
+  ion-button {
+    margin-top: 20px;
+    --background: #640101; /* Fondo rojo oscuro */
+    --color: white; /* Texto blanco */
+    --border-radius: 10px; /* Bordes redondeados */
+    width: 100%; /* Botón del mismo ancho que los campos */
+  }
+  

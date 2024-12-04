@@ -1,26 +1,43 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Ingresar Receta</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
-  <form (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-label position="floating">Título</ion-label>
-      <ion-input type="text" [(ngModel)]="newRecipe.title" name="title"></ion-input>
-    </ion-item>
+  <div class="ingresorecetas-container">
+    <!-- Título de la página -->
+    <h1 class="page-title">Crea tu receta</h1>
 
-    <ion-item>
-      <ion-label position="floating">Descripción</ion-label>
-      <ion-textarea [(ngModel)]="newRecipe.description" name="description"></ion-textarea>
-    </ion-item>
+    <form (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">Título</ion-label>
+        <ion-input type="text" [(ngModel)]="newRecipe.title" name="title"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">URL de Imagen</ion-label>
-      <ion-input type="text" [(ngModel)]="newRecipe.imageUrl" name="imageUrl"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-textarea [(ngModel)]="newRecipe.description" name="description"></ion-textarea>
+      </ion-item>
 
-    <ion-button expand="full" type="submit">Guardar Receta</ion-button>
-  </form>
+      <ion-item>
+        <ion-label position="floating">URL de Imagen</ion-label>
+        <ion-input type="text" [(ngModel)]="newRecipe.imageUrl" name="imageUrl"></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" type="submit">Guardar Receta</ion-button>
+    </form>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home" (click)="onHomeButtonPressed()">
+      <ion-icon name="home-outline"></ion-icon>
+      Home
+    </ion-tab-button>
+    <ion-tab-button tab="recipe" (click)="onRecipeButtonPressed()">
+      <ion-icon name="pizza-outline"></ion-icon>
+      Recetas
+    </ion-tab-button>
+    <ion-tab-button tab="profile" (click)="onProfileButtonPressed()">
+      <ion-icon name="person-outline"></ion-icon>
+      Perfil
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-footer>
