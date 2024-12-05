@@ -1,0 +1,11 @@
+<ion-card>
+  <img [src]="receta.imageUrl" alt="Imagen de la receta" />
+  <ion-card-header>
+    <ion-card-title>{{ receta.title }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <p>{{ receta.description }}</p>
+    <p><strong>Ingredientes:</strong> {{ receta.ingredientes }}</p>
+    <p><strong>Preparación:</strong> {{ receta.preparacion }}</p>
+  </ion-card-content>
+</ion-card>

@@ -15,6 +15,15 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
+  
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'detalle-receta',
+    loadChildren: () => import('./detalle-receta/detalle-receta.module').then( m => m.DetalleRecetaPageModule)
+  },
   {
     path: 'login0',
     loadChildren: () => import('./login0/login0.module').then(m => m.Login0PageModule)
@@ -28,17 +37,14 @@ const routes: Routes = [
     loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
   },
   {
-    path: 'user-management',
-    loadChildren: () => import('./user-management/user-management.module').then( m => m.UserManagementPageModule)
-  },
-  {
     path: 'ingresorecetas',
     loadChildren: () => import('./ingresorecetas/ingresorecetas.module').then( m => m.IngresorecetasPageModule)
   },
-  {
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },
+  
+
+  
+  
+
 
 
   

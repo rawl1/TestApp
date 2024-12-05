@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Storage } from '@ionic/storage-angular';
-import { FirebaseDatabaseService } from '../services/firebase-database.service';
+import { CancelAlertService } from '../managers/CancelAlertService';
+import { UserLoginUseCase } from 'src/app/use-cases/user-login.use-case';
+
 
 @Component({
   selector: 'app-login',
@@ -11,42 +11,34 @@ import { FirebaseDatabaseService } from '../services/firebase-database.service';
 })
 export class LoginPage implements OnInit {
 
-  user: string = '';
+  email: string = '';
   password: string = '';
 
   constructor(
     private router: Router,
-    private afAuth: AngularFireAuth,
-    private storage: Storage,
-    private firebaseDatabaseService: FirebaseDatabaseService 
+    private userLoginUseCase: UserLoginUseCase,
+    private alert: CancelAlertService
   ) {}
 
-  async ngOnInit() {
-    await this.storage.create();
-  }
+  ngOnInit() { }
 
-  // funcion del login
   async onLoginButtonPressed() {
-    console.log('User:', this.user);
-    console.log('Password:', this.password);
+    const result = await this.userLoginUseCase.performLogin(this.email, this.password);
 
-    try {
-      // inica sesion con fireatuth
-      const userCredential = await this.afAuth.signInWithEmailAndPassword(this.user, this.password);
-      console.log('Usuario logueado', userCredential);
-
-      // obetener datos de realtime database
-      const userData = await this.firebaseDatabaseService.getUserFromDatabase(userCredential.user?.uid).toPromise();
-      console.log('Datos del usuario:', userData);
-
-      // guarada el nombre de usuario en local storage
-      this.storage.set("nombreUsuario", userData?.userName);
-
-      // Redirigir a la página de inicio
-      this.router.navigate(['/home']);
-    } catch (error) {
-      console.error('Error al iniciar sesión', error);
-      alert('Las credenciales ingresadas son inválidas');
+    if (result.success) {
+      this.alert.showAlert(
+        'Login exitoso',
+        'Has iniciado sesión correctamente.',
+        () => {
+          this.router.navigate(['/home']);
+        }
+      );
+    } else {
+      this.alert.showAlert(
+        'Error',
+        result.message,
+        () => { }
+      );
     }
   }
 

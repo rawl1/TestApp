@@ -1,86 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { ToastController } from '@ionic/angular';
-import { FirebaseDatabaseService } from '../services/firebase-database.service';
-import { User } from '../models/user.model';
+import { CancelAlertService } from '../managers/CancelAlertService';
+import { UserRegistrationUseCase } from '../use-cases/user-registrarion.use';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage implements OnInit {
 
-  user: string = '';
+export class RegisterPage {
+
   email: string = '';
   password: string = '';
-  confirmPassword: string = '';
 
   constructor(
+    private userRegistrationUseCase: UserRegistrationUseCase,
     private router: Router,
-    private afAuth: AngularFireAuth,
-    private toastController: ToastController,
-    private firebaseDatabaseService: FirebaseDatabaseService
-  ) {}
+    private alert: CancelAlertService
+  ) { }
 
-  ngOnInit() {}
-
-  
   async onRegisterButtonPressed() {
-    // Valida password
-    if (this.password !== this.confirmPassword) {
-      const toast = await this.toastController.create({
-        message: 'Las contraseñas no coinciden.',
-        duration: 2000,
-        color: 'danger',
-      });
-      toast.present();
-      return;
-    }
+    // Llama al caso de uso para manejar el registro
+    const result = await this.userRegistrationUseCase.performRegistration(this.email, this.password);
 
-    // valida campos vacios
-    if (!this.user || !this.email || !this.password || !this.confirmPassword) {
-      const toast = await this.toastController.create({
-        message: 'Por favor completa todos los campos.',
-        duration: 2000,
-        color: 'danger',
-      });
-      toast.present();
-      return;
-    }
-
-    try {
-      // crear cuenta con email y user
-      const userCredential = await this.afAuth.createUserWithEmailAndPassword(this.email, this.password);
-      console.log('Usuario registrado', userCredential);
-
-      // crea los datos
-      const userData: User = {
-        id: userCredential.user?.uid || '',  
-        email: this.email,
-        userName: this.user,
-        createdAt: new Date().toISOString(),
-      };
-      
-      
-      await this.firebaseDatabaseService.addUser(userData);
-
-     
-      this.router.navigate(['/login']);
-    } catch (error) {
-      console.error('Error al registrar', error);
-      const toast = await this.toastController.create({
-        message: 'Error al registrar, intenta de nuevo.',
-        duration: 2000,
-        color: 'danger',
-      });
-      toast.present();
+    // Si hay un mensaje de éxito, navega a otra vista
+    if (result.success) {
+      this.alert.showAlert(
+        'Registro exitoso',
+        'Ya eres parte de nuestro sistema',
+        () => {
+          this.router.navigate(['/login0']);
+        }
+      );
+    } else {
+      // Muestra el error proporcionado por el caso de uso
+      this.alert.showAlert(
+        'Error',
+        result.message,
+        () => {
+          this.clean();
+        }
+      );
     }
   }
 
-  
-  onLoginButtonPressed() {
-    this.router.navigate(['/login']);
+  clean() {
+    this.email = '';
+    this.password = '';
   }
 }

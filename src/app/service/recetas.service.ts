@@ -19,4 +19,9 @@ export class RecetasService {
   getRecipes() {
     return this.firestore.collection(this.collectionName).valueChanges({ idField: 'id' });
   }
+
+  // Método para eliminar una receta
+  deleteRecipe(id: string): Promise<void> {
+    return this.firestore.collection(this.collectionName).doc(id).delete();
+  }
 }

@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { IngresorecetasPageRoutingModule } from './ingresorecetas-routing.module';
 
-import { IngresorecetasPage } from './ingresorecetas.page';  // Nombre correcto de la clase
+import { IngresorecetasPage } from './ingresorecetas.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { IngresorecetasPage } from './ingresorecetas.page';  // Nombre correcto 
     IonicModule,
     IngresorecetasPageRoutingModule
   ],
-  declarations: [IngresorecetasPage]  // Nombre correcto de la clase
+  declarations: [IngresorecetasPage]
 })
 export class IngresorecetasPageModule {}

@@ -1,69 +1,79 @@
-/* Estilos generales para ion-content */
+/* Estilo general para ion-content */
 ion-content {
-  --background: url('/assets/images/fondo.jpg');
-  --padding-bottom: 70px; /* Asegura que el contenido no se oculte detrás de los tabs */
+  --background: url('/assets/images/fondo.jpg') no-repeat center center / cover; /* Imagen de fondo */
+  --padding-bottom: 70px; /* Evita que el contenido quede oculto detrás de los tabs */
   height: calc(100vh - 56px); /* Ajusta la altura para permitir desplazamiento */
-  overflow-y: scroll; /* Permite desplazamiento vertical */
-  position: relative; /* Garantiza que el contenido sea desplazable */
+  overflow-y: auto; /* Permite desplazamiento vertical */
 }
 
 /* Estilos para ion-card */
 ion-card {
-  width: 80vw;
-  max-width: 180px;
-  height: auto;
-  min-height: 250px;
-  max-height: 300px;
-  --background: #440101;
-  --box-shadow: 0 4px 8px rgba(13, 102, 1, 0.1);
-  --border-radius: 20px;
-  --padding: 20px;
-  margin-bottom: 20px;
-  color: #ffffff;
+  width: 70vw; /* Ancho ajustado */
+  max-width: 250px; /* Ancho máximo de la tarjeta */
+  min-height: 200px; /* Altura mínima */
+  max-height: 300px; /* Altura máxima */
+  --background: #ffffff; /* Fondo blanco para un diseño limpio */
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  --border-radius: 15px; /* Bordes redondeados */
+  --padding: 10px; /* Espaciado interno reducido */
+  margin: 15px auto; /* Márgenes automáticos para centrar */
+  color: #333; /* Texto oscuro para mejor contraste */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 20px;
+  overflow: hidden; /* Evita el desbordamiento de contenido */
 }
 
-/* Otros estilos de ion-card */
-ion-card-title, ion-card-subtitle, ion-card-content {
-  color: #ffffff;
-}
-
+/* Estilo de la imagen de la tarjeta */
 ion-card img {
-  border-radius: 20px;
-  max-height: 120px;
-  width: 100%;
-  object-fit: cover;
+  border-radius: 10px; /* Bordes redondeados en la imagen */
+  max-height: 120px; /* Altura máxima reducida */
+  width: 100%; /* Imagen se ajusta al ancho de la tarjeta */
+  object-fit: cover; /* Ajusta la imagen para no deformarse */
 }
 
-/* Estilos para los botones de logout */
-ion-buttons {
-  padding: 10px;
+/* Título y contenido de la tarjeta */
+ion-card-title,
+ion-card-subtitle,
+ion-card-content {
+  color: #333; /* Color de texto más oscuro para mejorar la legibilidad */
+  font-size: 14px; /* Tamaño de texto más pequeño */
 }
 
-/* Estilos de la barra de herramientas */
+/* Botón de eliminar */
+ion-card ion-button {
+  --background: #e22227; /* Fondo rojo para destacar */
+  --color: white; /* Texto blanco */
+  margin-top: 10px; /* Espaciado superior */
+  width: 100%; /* Botón de ancho completo */
+  font-size: 12px; /* Tamaño de texto más pequeño */
+  --border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Ajustes de la barra de herramientas */
 ion-toolbar {
-  background-color: #E22227;
+  background-color: #E22227; /* Fondo rojo */
 }
 
 ion-title {
-  color: #fff;
+  color: #fff; /* Texto de título en blanco */
 }
 
-/* Asegura que el contenido de la tarjeta se adapte bien */
-.card-container {
-  flex: 0 1 30%; /* Ajusta el ancho de cada tarjeta al 30% del contenedor */
-  max-width: 300px; /* Ancho máximo para cada tarjeta */
-}
-
+/* Configuración del layout de las tarjetas */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Múltiples columnas adaptables */
-  gap: 50px; /* Espacio entre tarjetas */
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Columnas adaptables */
+  gap: 20px; /* Espacio entre tarjetas */
 }
 
 .card-container {
   width: 100%; /* Asegura que cada tarjeta ocupe el ancho completo de la columna */
+}
+
+more-button{
+  margin-top: 10px; /* Espaciado superior */
+  width: 100%; /* Botón de ancho completo */
+  font-size: 12px; /* Tamaño de texto más pequeño */
+  --border-radius: 5px; /* Bordes redondeados */
+
 }
