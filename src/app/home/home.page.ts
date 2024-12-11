@@ -5,6 +5,7 @@ import { RecetasService } from '../service/recetas.service';
 import { Router } from '@angular/router';
 import { UserLogoutUseCase } from '../use-cases/user-logout.use-case';
 import { CancelAlertService } from '../managers/CancelAlertService';
+import firebase from 'firebase/compat/app'; // Importar para usar el tipo User
 
 @Component({
   selector: 'app-home',
@@ -13,27 +14,34 @@ import { CancelAlertService } from '../managers/CancelAlertService';
 })
 export class HomePage implements OnInit {
   nombreUsuario: string = '';
-  recetas: any[] = []; // Array para almacenar las recetas dinámicas
+  recetas: any[] = [];
+  userId: string = '';
 
   constructor(
     private sessionManager: SessionManager,
     private storage: Storage,
-    private recetasService: RecetasService, // Inyectar el servicio
-    private router: Router, // Usa esta instancia del enrutador
+    private recetasService: RecetasService,
+    private router: Router,
     private cancelAlertService: CancelAlertService,
-    private logoutUseCase: UserLogoutUseCase,
+    private logoutUseCase: UserLogoutUseCase
   ) {}
 
   async ngOnInit() {
     await this.storage.create();
     this.verStorage();
-    this.cargarRecetas(); // Cargar las recetas dinámicas
+    await this.obtenerUserId();
+    this.cargarRecetas(); 
   }
 
   async verStorage() {
     let nombre = await this.storage.get('nombreUsuario');
     console.log('El nombre guardado es: ' + nombre);
     this.nombreUsuario = nombre ? nombre : 'Invitado';
+  }
+
+  async obtenerUserId() {
+    const usuario: firebase.User | null = await this.sessionManager.getProfile();
+    this.userId = usuario?.uid || ''; 
   }
 
   async onSignOutButtonPressed() {
@@ -44,13 +52,18 @@ export class HomePage implements OnInit {
         this.logoutUseCase.performLogout();
         this.router.navigate(['/splash']);
       },
-      () => { }
+      () => {}
     );
   }
 
   // Método para cargar recetas desde el servicio
   cargarRecetas() {
-    this.recetasService.getRecipes().subscribe((data) => {
+    if (!this.userId) {
+      console.error('No se encontró un usuario autenticado');
+      return;
+    }
+
+    this.recetasService.getRecipesByUser(this.userId).subscribe((data) => {
       this.recetas = data; // Guardar las recetas en el array
     });
   }
@@ -65,17 +78,16 @@ export class HomePage implements OnInit {
     });
   }
 
-
-  // Apartado de navegacion del tab
+  // Apartado de navegación del tab
   onRecipeButtonPressed() {
-    this.router.navigate(['/ingresorecetas']); // Usa la instancia inyectada del enrutador
+    this.router.navigate(['/ingresorecetas']);
   }
 
   onProfileButtonPressed() {
-    this.router.navigate(['/profile']); // Usa la instancia inyectada del enrutador
+    this.router.navigate(['/profile']);
   }
 
-  ondetailButtonPressed(){
-    this.router.navigate(['/detalle-receta'])
+  ondetailButtonPressed() {
+    this.router.navigate(['/detalle-receta']);
   }
 }

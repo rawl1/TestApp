@@ -10,15 +10,16 @@ export class RecetasService {
   constructor(private firestore: AngularFirestore) {}
 
   // Método para agregar una receta
-  addRecipe(recipe: any) {
-    // Se usa el método `add` para agregar el objeto `recipe` a Firestore
-    return this.firestore.collection(this.collectionName).add(recipe);
+  addRecipe(receta: any) {
+    return this.firestore.collection('recipes').add(receta);
   }
+  
 
   // Método para obtener todas las recetas
-  getRecipes() {
-    return this.firestore.collection(this.collectionName).valueChanges({ idField: 'id' });
+  getRecipesByUser(userId: string) {
+    return this.firestore.collection(this.collectionName, ref => ref.where('userId', '==', userId)).valueChanges({ idField: 'id' });
   }
+  
 
   // Método para eliminar una receta
   deleteRecipe(id: string): Promise<void> {
