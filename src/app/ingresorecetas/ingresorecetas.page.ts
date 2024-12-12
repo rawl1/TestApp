@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { RecetasService } from '../service/recetas.service'; // Asegúrate de que la ruta sea correcta
-import { Router } from '@angular/router'; // Importa Router
+import { RecetasService } from '../service/recetas.service';
+import { Router } from '@angular/router';
 import { SessionManager } from '../managers/SessionManager';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { ActionSheet, ActionSheetButtonStyle } from '@capacitor/action-sheet';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-ingresorecetas',
@@ -9,48 +12,91 @@ import { SessionManager } from '../managers/SessionManager';
   styleUrls: ['./ingresorecetas.page.scss'],
 })
 export class IngresorecetasPage {
-  newRecipe = {
-    title: '',
-    description: '',
-    imageUrl: '',
-    userId: ''
+  receta = {
+    nombre: '',
+    ingredientes: '',
+    preparacion: '',
+    imagen: '',
+    descripcion: '',
   };
 
   constructor(
-    private recetasService: RecetasService, // Inyectamos el servicio
-    private router: Router, // Inyectamos el servicio Router
-    private sessionManager: SessionManager ) {}
+    private recetasService: RecetasService,
+    private router: Router,
+    private sessionManager: SessionManager,
+    private platform: Platform
+  ) {}
 
   // Método para guardar la receta
-  onSubmit() {
-    if (this.newRecipe.title && this.newRecipe.description && this.newRecipe.imageUrl) {
-      // Obtén el userId del usuario autenticado
-      this.sessionManager.getProfile().then((userId) => {
-        if (userId) {
-          // Añade el userId al objeto de la receta
-          const recetaConUsuario = {
-            ...this.newRecipe,
-            userId: userId, // Asegúrate de que esto se esté configurando correctamente
-          };
-  
-          this.recetasService.addRecipe(recetaConUsuario)
-            .then(() => {
-              console.log('Receta guardada');
-              // Redirigir al home después de guardar
-              this.router.navigate(['/home']);
-            })
-            .catch((error) => {
-              console.error('Error al guardar receta: ', error);
-            });
-        } else {
-          console.error('Error: no se pudo obtener el ID del usuario');
-        }
+  agregarReceta() {
+    this.recetasService
+      .agregarReceta(this.receta)
+      .then(() => {
+        this.router.navigate(['/home']);
+      })
+      .catch((error) => {
+        console.error('Error al agregar la receta: ', error);
       });
-    } else {
-      console.error('Por favor complete todos los campos');
+  }
+
+  // Nuevo método para mostrar Action Sheet
+  async seleccionarImagen() {
+    try {
+      const result = await ActionSheet.showActions({
+        title: 'Seleccionar Imagen',
+        message: 'Elige una opción para la imagen de tu receta',
+        options: [
+          {
+            title: 'Tomar Foto',
+            icon: 'camera'
+          },
+          {
+            title: 'Elegir de Galería',
+            icon: 'image'
+          },
+          {
+            title: 'Cancelar',
+            style: ActionSheetButtonStyle.Destructive,
+            icon: 'close'
+          }
+        ]
+      });
+
+      // Manejar la selección
+      switch(result.index) {
+        case 0:
+          // Tomar foto con la cámara
+          await this.tomarFoto(CameraSource.Camera);
+          break;
+        case 1:
+          // Seleccionar de la galería
+          await this.tomarFoto(CameraSource.Photos);
+          break;
+        case 2:
+          // Cancelar
+          break;
+      }
+    } catch (error) {
+      console.error('Error al mostrar Action Sheet', error);
     }
   }
-  
+
+  // Método modificado para tomar foto
+  async tomarFoto(source: CameraSource) {
+    try {
+      const photo = await Camera.getPhoto({
+        resultType: CameraResultType.Base64,
+        source: source,
+        quality: 90,
+        saveToGallery: false, // Opcional
+      });
+
+      // Convertir a formato base64 o URL de datos
+      this.receta.imagen = `data:image/jpeg;base64,${photo.base64String}`;
+    } catch (error) {
+      console.error('Error al tomar foto: ', error);
+    }
+  }
 
   // Métodos de navegación para tabs
   onHomeButtonPressed() {

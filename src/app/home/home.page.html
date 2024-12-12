@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Savor Space</ion-title>
+    <ion-title>Inicio</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="onSignOutButtonPressed()">
         <ion-icon>
@@ -13,6 +13,7 @@
 
 <ion-content [fullscreen]="true">
   <div class="content-container">
+    <p class="user-location">Ubicacion actual: {{ userLocation }}</p>
     <p class="user-info">Bienvenido a Savor Space</p>
 
     <!-- Sección dinámica -->
@@ -20,13 +21,17 @@
       <ion-row>
         <ion-col *ngFor="let receta of recetas" size="12" size-md="6" size-lg="4">
           <ion-card class="custom-card">
+            <!-- Imagen de la receta -->
             <img [src]="receta.imageUrl" alt="Imagen de la receta" />
+
             <ion-card-header>
-              <ion-card-title>{{ receta.title }}</ion-card-title>
+              <ion-card-title>{{ receta.nombre }}</ion-card-title>
             </ion-card-header>
+
             <ion-card-content>
-              {{ receta.description }}
+              {{ receta.descripcion }}
             </ion-card-content>
+
             <ion-button class="delete-button" color="danger" (click)="eliminarReceta(receta.id)">
               Eliminar
             </ion-button>
@@ -34,13 +39,11 @@
               Detalles
             </ion-button>
           </ion-card>
-          
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
 </ion-content>
-
 
 <ion-footer>
   <ion-tab-bar slot="bottom">

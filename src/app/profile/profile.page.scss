@@ -1,62 +1,57 @@
-ion-content {
-    padding: 16px;
-    background-color: red;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; /* Agrega un fondo semitransparente para ver si la imagen se carga */
-  }
-  
-  .profile-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .profile-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 16px; /* Espacio debajo de la imagen */
-  }
-  
-  .profile-image {
-    width: 120px; /* Ajusta el tamaño de la imagen */
-    height: 120px; /* Ajusta el tamaño de la imagen */
-    border-radius: 50%; /* Hace que la imagen sea circular */
-    object-fit: cover; /* Asegura que la imagen mantenga la proporción */
-    border: 2px solid #ffffff; /* Opcional: añade un borde blanco */
-  }
-  
-  
-  .upload-btn {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: -40px; /* Ajusta esto para que el botón se superponga un poco a la imagen */
-    z-index: 1; /* Asegura que el botón esté por encima de la imagen */
-  }
-  
-  .upload-btn input[type="file"] {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0; /* Hace que el input de archivo sea invisible pero funcional */
-    cursor: pointer; /* Cambia el cursor cuando pasas por encima */
-  }
-  
-  .upload-btn ion-icon {
-    font-size: 32px; /* Tamaño del ícono */
-    color: #fff; /* Color del ícono */
-  }
-  
-  
-  .profile-form {
-    margin-bottom: 20px;
-  }
-  
-  .save-button-container {
-    margin-top: 20px;
-  }
-  
+.card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-left: 32px;
+  padding-right: 32px;
+  color: rgb(243, 243, 243);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-avatar {
+  width: 120px;
+  height: 120px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  position: relative; /* Necesario para posicionar el botón sobre la imagen */
+}
+
+ion-label, ion-item {
+  text-align: center;
+  width: 100%;
+}
+
+.update-profile-button {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  color: rgb(255, 255, 255);
+}
+
+.avatar-overlay-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 1;
+}
+
+.update-photo-message {
+  text-align: center;
+  margin-bottom: 8px; /* Se ajusta la distancia del mensaje */
+  font-weight: bold;
+}
+.ion-content{
+  --background: url('/assets/images/fondo.jpg');
+}

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
-import { FirebaseService } from '../managers/baseperfil-service';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Router } from '@angular/router';
-import { UserLogoutUseCase } from '../use-cases/user-logout.use-case';
+import { StorageService } from '../managers/StorageService';
+import { UserUpdateUseCase } from 'src/app/use-cases/user-update.use-case';
 import { CancelAlertService } from '../managers/CancelAlertService';
+import { ActionSheetController } from '@ionic/angular';
+import { ImageService } from '../managers/image-service';
 
 @Component({
   selector: 'app-profile',
@@ -12,134 +11,76 @@ import { CancelAlertService } from '../managers/CancelAlertService';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  userId: string = '';
+
+  userEmail: string = '';
   userName: string = '';
-  email: string = '';
-  imageUrl: string = ''; // URL de la imagen de perfil
-  isLoading: boolean = false;
+  userPhotoURL: string = 'assets/default-avatar.png';
 
   constructor(
-    private firebaseService: FirebaseService,
-    private afAuth: AngularFireAuth,
-    private toastController: ToastController,
-    private router: Router, // Usa esta instancia del enrutador
-    private cancelAlertService: CancelAlertService,
-    private logoutUseCase: UserLogoutUseCase,
-  ) {}
+    private storageService: StorageService,
+    private userUpdateUseCase: UserUpdateUseCase,
+    private alert: CancelAlertService,
+    private actionSheetController: ActionSheetController,
+    private imageService: ImageService  // Nuevo servicio
+  ) { }
 
   async ngOnInit() {
-    // Obtén el usuario autenticado
-    this.afAuth.authState.subscribe(async (user) => {
-      if (user) {
-        this.userId = user.uid;
-        this.email = user.email || '';
-        await this.loadUserData();
-      }
-    });
-  }
+    const user = await this.storageService.get('user');
 
-  // Cargar los datos del usuario desde Firestore
-  async loadUserData() {
-    try {
-      const userData = await this.firebaseService.getUserData(this.userId);
-      if (userData) {
-        this.userName = userData.userName || '';
-        this.imageUrl = userData.imageUrl || '';
-      }
-    } catch (error) {
-      console.error('Error loading user data:', error);
-      this.presentToast('Error al cargar datos de usuario.', 'danger');
+    if (user) {
+      this.userEmail = user.email && user.email.trim() !== '' ? user.email : 'Correo no disponible';
+      this.userName = user.displayName && user.displayName.trim() !== '' ? user.displayName : 'Nombre no disponible';
+      this.userPhotoURL = user.photoURL && user.photoURL.trim() !== '' ? user.photoURL : 'assets/default-avatar.png';
     }
   }
 
-  // Guardar los datos del usuario en Firestore
-  async saveProfile() {
-    if (!this.userName) {
-      this.presentToast('Por favor, ingresa un nombre de usuario.', 'warning');
-      return;
-    }
+  async onUpdateButtonPressed() {
+    const result = await this.userUpdateUseCase.performUserUpdate(this.userName);
 
-    this.isLoading = true;
-
-    try {
-      const userData = {
-        userName: this.userName,
-        imageUrl: this.imageUrl,
-      };
-
-      await this.firebaseService.saveUserData(this.userId, userData);
-      this.presentToast('Perfil actualizado correctamente.', 'success');
-    } catch (error) {
-      console.error('Error saving user data:', error);
-      this.presentToast('Error al guardar los datos del perfil.', 'danger');
-    } finally {
-      this.isLoading = false;
+    if (result.success) {
+      this.alert.showAlert(
+        'Actualización Exitosa',
+        'Tu perfil ha sido actualizado correctamente.',
+        () => { }
+      );
+    } else {
+      this.alert.showAlert(
+        'Error',
+        result.message,
+        () => { }
+      );
     }
   }
 
-  // Subir una imagen de perfil a Firebase Storage
-  async onImageSelected(event: any) {
-    const file = event.target.files[0];
-    if (!file) {
-      return;
-    }
-
-    this.isLoading = true;
-
-    try {
-      const reader = new FileReader();
-      reader.onload = async () => {
-        const base64Data = reader.result as string;
-
-        // Subir la imagen y obtener la URL
-        const imagePath = `profile-images/${this.userId}`;
-        const downloadUrl = await this.firebaseService.uploadImage(imagePath, base64Data);
-        if (downloadUrl) {
-          this.imageUrl = downloadUrl;
-          this.presentToast('Imagen subida exitosamente.', 'success');
+  async onProfileImagePressed() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Selecciona una opción',
+      buttons: [
+        {
+          text: 'Cámara',
+          icon: 'camera',
+          handler: async () => {
+            const uploadResult = await this.imageService.getImageFromCamera();
+            console.log(uploadResult);
+          }
+        },
+        {
+          text: 'Imágenes',
+          icon: 'image',
+          handler: async () => {
+            const uploadResult = await this.imageService.getImageFromGallery();
+            console.log(uploadResult);
+          },
+        },
+        {
+          text: 'Cancelar',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => { }
         }
-      };
-      reader.readAsDataURL(file);
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      this.presentToast('Error al subir la imagen.', 'danger');
-    } finally {
-      this.isLoading = false;
-    }
-  }
-
-  // Mostrar mensajes emergentes
-  async presentToast(message: string, color: string) {
-    const toast = await this.toastController.create({
-      message,
-      duration: 2000,
-      color,
+      ]
     });
-    toast.present();
-  }
-  
-  async onSignOutButtonPressed() {
-    this.cancelAlertService.showAlert(
-      'Cerrar sesión',
-      '¿Estás seguro de que quieres cerrar sesión?',
-      async () => {
-        this.logoutUseCase.performLogout();
-        this.router.navigate(['/splash']);
-      },
-      () => { }
-    );
+    await actionSheet.present();
   }
 
-   // Métodos de navegación para tabs
-   onHomeButtonPressed() {
-    this.router.navigate(['/home']);
-  }
-
-  onRecipeButtonPressed() {
-    this.router.navigate(['/ingresorecetas']);
-  }
-
-  onProfileButtonPressed() {
-    this.router.navigate(['/profile']);
-  }
 }

@@ -1,33 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Receta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <div class="ingresorecetas-container">
-    <!-- Título de la página -->
-    <h1 class="page-title">Crea tu receta</h1>
+  <form (ngSubmit)="agregarReceta()">
+    <ion-item>
+      <ion-label position="floating">Nombre de la receta</ion-label>
+      <ion-input [(ngModel)]="receta.nombre" name="nombre" required></ion-input>
+    </ion-item>
 
-    <form (ngSubmit)="onSubmit()">
-      <ion-item>
-        <ion-label position="floating">Título</ion-label>
-        <ion-input type="text" [(ngModel)]="newRecipe.title" name="title"></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-label position="floating">Ingredientes</ion-label>
+      <ion-input [(ngModel)]="receta.ingredientes" name="ingredientes" required></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Descripción</ion-label>
-        <ion-textarea [(ngModel)]="newRecipe.description" name="description"></ion-textarea>
-      </ion-item>
+    <ion-item>
+      <ion-label position="floating">Preparación</ion-label>
+      <ion-input [(ngModel)]="receta.preparacion" name="preparacion" required></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">URL de Imagen</ion-label>
-        <ion-input type="text" [(ngModel)]="newRecipe.imageUrl" name="imageUrl"></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-input [(ngModel)]="receta.descripcion" name="descripcion" required></ion-input>
+    </ion-item>
 
-      <ion-button expand="full" type="submit">Guardar Receta</ion-button>
-    </form>
-  </div>
+    <!-- Botón para seleccionar foto con Action Sheet -->
+    <ion-item>
+      <ion-label>Foto</ion-label>
+      <ion-button (click)="seleccionarImagen()">
+        <ion-icon name="camera-outline"></ion-icon>
+        Añadir Imagen
+      </ion-button>
+    </ion-item>
+
+    <!-- Mostrar imagen seleccionada -->
+    <ion-item *ngIf="receta.imagen">
+      <ion-img [src]="receta.imagen"></ion-img>
+    </ion-item>
+
+    <ion-button expand="full" type="submit">Agregar Receta</ion-button>
+  </form>
 </ion-content>
 
 <ion-footer>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home" (click)="onHomeButtonPressed()">
-      <ion-icon name="home-outline"></ion-icon>
+    <ion-tab-button tab="home">
+      <ion-icon name="home-outline" (click)="onHomeButtonPressed()"></ion-icon>
       Home
     </ion-tab-button>
     <ion-tab-button tab="recipe" (click)="onRecipeButtonPressed()">

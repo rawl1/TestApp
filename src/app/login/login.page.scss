@@ -1,48 +1,31 @@
-/* Estilos generales para ion-content */
 ion-content {
-    
-    --padding-bottom: 70px; /* Asegura que el contenido no se oculte detrás de los tabs */
-    height: calc(100vh - 56px); /* Ajusta la altura para permitir desplazamiento */
-    overflow-y: scroll; /* Permite desplazamiento vertical */
-    position: relative; /* Garantiza que el contenido sea desplazable */
-  }
-
-  /* Fondo de la página */
-.login-background {
-    --background: url('/assets/images/fondo.jpg');
-  }
-  
-  /* Centrar el contenido */
-  .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100%; /* Asegura que ocupe toda la altura */
-    padding: 0 20px; /* Agregar un poco de espacio a los lados */
-  }
-  
-  /* Estilo de los items de los formularios (usuario, contraseña) */
-  .input-item {
-    --background: rgba(255, 255, 255, 0.3); /* Fondo blanco translúcido */
-    --box-shadow: none; /* Eliminar sombra por defecto */
-    --border-radius: 10px; /* Bordes redondeados */
-    margin-bottom: 20px; /* Espaciado entre los campos */
-  }
-  
-  /* Estilo para el botón */
-  ion-button {
-    margin-top: 20px;
-    --background: #640101; /* Fondo azul */
-    --color: white; /* Texto blanco */
-     --border-radius: 10px; /* Bordes redondeados */
-  }
-  
-  /* Estilo del enlace para el registro */
-  .register-link {
-    text-align: center;
-    margin-top: 20px;
-  }
-  ion-header {
-    background-color: #E22227;
-  }
+  --background: url('/assets/images/fondo.jpg');
+}
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.button-container {
+  width: 80%;
+  max-width: 300px;
+  margin: 10px 0; 
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #440101;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.input-container{
+  width: 80%;
+  max-width: 300px;
+  margin: 10px 0; 
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #440101;
+}

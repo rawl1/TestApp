@@ -4,12 +4,12 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 @Injectable({
   providedIn: 'root',
 })
+
 export class ImageService {
 
-  constructor() {}
+  constructor() { }
 
-  // Método para obtener una imagen desde la cámara
-  async getImageFromCamera(): Promise<string> {
+  async getImageFromCamera(): Promise<{ success: boolean, imageUrl?: string }> {
     try {
       const image = await Camera.getPhoto({
         quality: 90,
@@ -17,16 +17,14 @@ export class ImageService {
         resultType: CameraResultType.DataUrl,
         source: CameraSource.Camera,
       });
-
-      return image.dataUrl;
+      const imageUrl = image.dataUrl;
+      return { success: true, imageUrl: image.dataUrl };
     } catch (error) {
-      console.error('Error al obtener la imagen de la cámara:', error);
-      return "";
+      return { success: false };
     }
   }
 
-  // Método para obtener una imagen desde la galería
-  async getImageFromGallery(): Promise<string> {
+  async getImageFromGallery(): Promise<{ success: boolean, imageUrl?: string }> {
     try {
       const image = await Camera.getPhoto({
         quality: 90,
@@ -34,11 +32,11 @@ export class ImageService {
         resultType: CameraResultType.DataUrl,
         source: CameraSource.Photos,
       });
-
-      return image.dataUrl;
+      const imageUrl = image.dataUrl;
+      return { success: true, imageUrl: image.dataUrl };
     } catch (error) {
-      console.error('Error al obtener la imagen de la galería:', error);
-      return "";
+      return { success: false };
     }
   }
+
 }
